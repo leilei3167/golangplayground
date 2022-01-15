@@ -32,7 +32,7 @@ func (p Camera) Start() {
 }
 
 func (p Camera) Stop() {
-	fmt.Println("相机停止工作")
+fmt.Println("相机停止工作") 
 }
 
 type Computer struct {
