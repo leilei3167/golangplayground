@@ -34,6 +34,12 @@ func hash(key string) int {
 	return index
 }
 
+//显示当前键值对的数量
+func (this *Hashtable) Count() {
+	fmt.Printf("当前已存储的键值对数量为%d\n", this.cap)
+
+}
+
 //加入键值对
 func (this *Hashtable) Put(k string, v interface{}) {
 	//首先先计算要放入的数组标号
@@ -71,6 +77,10 @@ func (this *Hashtable) Put(k string, v interface{}) {
 func (this *Hashtable) Del(k string) {
 	//根据key查找
 	//先查找
+	//先判断是否为空表
+	if this.cap == 0 {
+		panic("目前没有任何数据！请先添加数据！")
+	}
 	index := hash(k)
 	//遍历该标号数组的链表
 
@@ -78,6 +88,7 @@ func (this *Hashtable) Del(k string) {
 		if this.array[index].key == k {
 			fmt.Printf("已完成删除%s：%v\n", this.array[index].key, this.array[index].value)
 			this.array[index] = this.array[index].next
+			this.cap--
 			return
 		}
 		this.array[index] = this.array[index].next
@@ -90,7 +101,10 @@ func (this *Hashtable) Del(k string) {
 
 //根据key查找
 func (this *Hashtable) Look(k string) interface{} {
-	//先查找
+	//先判断是否为空表
+	if this.cap == 0 {
+		panic("目前没有任何数据！请先添加数据！")
+	}
 	index := hash(k)
 	//遍历该标号数组的链表
 
@@ -139,5 +153,6 @@ func main() {
 	a.Del("12") //删
 	a.Look("12")
 	fmt.Println("-----------遍历一下----------")
+	a.Count()
 	a.Read()
 }
