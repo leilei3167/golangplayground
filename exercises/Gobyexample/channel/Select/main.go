@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"time"
 )
 
@@ -24,7 +25,9 @@ func main() {
 
 	}()
 	//使用select关键字来同时等待这两个值
-
+	//当监听的通道无法读或写时,会一直阻塞,有一个可读或可写,进入该分支处理流程
+	//多个可读写时则随机选取一个读取
+	fmt.Println("GOMAXPROCS=", runtime.GOMAXPROCS(0)) //0表示查询当前可并发执行的协程数目,大于一表示设置
 	for i := 0; i < 2; i++ {
 
 		select {
