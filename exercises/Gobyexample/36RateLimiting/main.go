@@ -27,31 +27,34 @@ func main() {
 	}
 
 	//有时候我们想临时进行速率限制,并且不影响整体的速率控制,可以通过管道缓冲来实现
+
+	fmt.Println("-------------------------------------")
+	//用来进行3次临时的脉冲型速率限制
 	burstyLimiter := make(chan time.Time, 3)
 
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 3; i++ { //先添加3个缓冲值
 		burstyLimiter <- time.Now()
 
 	}
 
 	//每200ms添加一个新值
 	go func() {
-		for t := range time.Tick(time.Millisecond * 200) {
+		for t := range time.Tick(time.Millisecond * 1000) {
 			burstyLimiter <- t
 
 		}
 	}()
 	//模拟超过5个接入请求
 
-	burstyRequests := make(chan int, 5)
-	for i := 1; i <= 5; i++ {
+	burstyRequests := make(chan int, 10)
+	for i := 1; i <= 10; i++ {
 		burstyRequests <- i
 
 	}
 	close(burstyRequests)
 
 	for req := range burstyRequests {
-		<-burstyLimiter
+		<-burstyLimiter //因为事先有3个已存储好的值,所以前3次可以快速执行,后2次将会间隔200ms
 		fmt.Println("request", req, time.Now())
 	}
 
