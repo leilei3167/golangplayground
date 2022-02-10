@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
-	"time"
 )
 
 /* 计算1--20的各个数的阶乘，并把各个数的阶乘放入到map中，最后显示出来 */
@@ -16,8 +16,10 @@ var mymap = make(map[int]int, 10)
 
 //声明一个全局互斥锁,sync全称synchorized（同步）
 var lock sync.Mutex
+var wg sync.WaitGroup
 
 func test(n int) {
+
 	res := 1
 	for i := 1; i <= n; i++ {
 		res = res * i
@@ -26,15 +28,21 @@ func test(n int) {
 	lock.Lock()
 	mymap[n] = res //将阶乘结果放入map，没有保护机制，会导致并发写入map错误
 	lock.Unlock()  //解锁
+	wg.Done()
 }
 
 func main() {
-	//开启200个协程
+	//开启20个协程
+
 	for i := 1; i <= 20; i++ {
+		wg.Add(1)
 		go test(i)
 
 	}
-	time.Sleep(3 * time.Second)
+	fmt.Println(runtime.NumGoroutine())
+	fmt.Println(runtime.GOMAXPROCS(0))
+
+	wg.Wait()
 
 	//输出结果
 	lock.Lock()
