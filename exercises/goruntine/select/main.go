@@ -27,15 +27,15 @@ func main() {
 		case v := <-intChan: //注意：如果intChan一直没有关闭也不会一直阻塞导致deadlock
 			//会自动到下一个case匹配
 			fmt.Printf("从intChan读取的数据%d\n", v)
-			time.Sleep(1 * time.Second)
+			time.Sleep(200 * time.Millisecond)
 		case v := <-stringChan:
 			fmt.Printf("从stringChan读取的数据\n%s", v)
-			time.Sleep(1 * time.Second)
+			time.Sleep(200 * time.Millisecond)
 		default:
 			fmt.Println("都取完了，接下来程序员就可以进行操作了\n")
-
+			return
 		}
-		return
+
 	}
 
 }
