@@ -25,12 +25,44 @@ func Include(vs []string, t string) bool {
 
 }
 
-func Any(vs []string,f func(string)bool)bool{
-for _,v:=range vs{
-	if f(v){
-		return true
+//如果切片中有一个字符串满足条件 f,则返回true
+func Any(vs []string, f func(string) bool) bool {
+	for _, v := range vs {
+		if f(v) {
+			return true
+		}
 	}
+
+	return false
 }
 
+//如果切片中所有字符串都满足,则返回true
+func All(vs []string, f func(string) bool) bool {
+	for _, v := range vs {
+		if !f(v) {
+			return false
+		}
+	}
 
+	return true
+}
+
+// 返回一个包含所有切片中满足条件 `f` 的字符串的新切片。
+func Filter(vs []string, f func(string) bool) []string {
+	vsf := make([]string, 0)
+	for _, v := range vs {
+		if f(v) {
+			vsf = append(vsf, v)
+		}
+	}
+	return vsf
+}
+
+// 返回一个对原始切片中所有字符串执行函数 `f` 后的新切片。
+func Map(vs []string, f func(string) string) []string {
+	vsm := make([]string, len(vs))
+	for i, v := range vs {
+		vsm[i] = f(v)
+	}
+	return vsm
 }
