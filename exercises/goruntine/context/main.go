@@ -58,7 +58,7 @@ func workwithValue(ctx context.Context, name string) {
 			fmt.Printf("%s 收到退出消息!!!\n", name)
 			return
 		default:
-			value, ok := ctx.Value("aluoha").(string)
+			value, ok := ctx.Value("aluoha").(string)//类型断言,因为value是接口
 			if !ok {
 				fmt.Println("输入的key有问题")
 
