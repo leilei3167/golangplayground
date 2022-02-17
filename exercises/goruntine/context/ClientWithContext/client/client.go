@@ -20,7 +20,7 @@ func doCall(ctx context.Context) {
 	transport := http.Transport{
 
 		DisableKeepAlives: true,
-		// 如果DisableKeepAlives为真，会禁止不同HTTP请求之间TCP连接的重用。
+		
 	}
 	client := http.Client{
 		Transport: &transport,
