@@ -8,7 +8,7 @@ import (
 /* 要求统计1-80000的数字中，哪些是素数？运用goruntine和channel的知识解决 */
 
 func putNum(intChan chan int) {
-	for i := 1; i <= 80000; i++ {
+	for i := 1; i <= 100000; i++ {
 		intChan <- i //把i往intChan里面放
 
 	}
@@ -40,7 +40,7 @@ func primeNum(intChan chan int, primeChan chan int, exitChan chan bool) { //需�
 			primeChan <- num
 		}
 	}
-	fmt.Printf("有一个协程因为取不到数据退出了\n")
+	//	fmt.Printf("有一个协程因为取不到数据退出了\n")
 	//因为无法判断其他协程是否也取不到数据，因此不能关闭，向exitChan写入内容，等待即可
 	exitChan <- true //完成就写一个true，但是不关闭管道
 

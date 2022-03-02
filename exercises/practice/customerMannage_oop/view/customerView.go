@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"GOproject/src/go_code/exercises/practice/customerMannage_oop/service"
+	"golangplayground/exercises/practice/customerMannage_oop/service"
 )
 
 /* 主菜单：

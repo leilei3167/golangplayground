@@ -1,6 +1,6 @@
 package service
 
-import "GOproject/src/go_code/exercises/practice/customerMannage_oop/model"
+import "golangplayground/exercises/practice/customerMannage_oop/model"
 
 //该结构体完成对Customer的操作，包括增删改查
 type CustomerService struct {

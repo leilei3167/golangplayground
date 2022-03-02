@@ -7,7 +7,7 @@ import (
 
 func main() {
 	start := time.Now().UnixMilli()
-	for num := 1; num <= 80000; num++ {
+	for num := 1; num <= 100000; num++ {
 		flag := true
 		for i := 2; i < num; i++ {
 			if num%i == 0 {

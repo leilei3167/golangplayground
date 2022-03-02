@@ -1,7 +1,7 @@
 package main
 
 import (
-	"GOproject/src/go_code/exercises/practice/familyacc_oop/utils"
+	"golangplayground/exercises/practice/familyacc_oop/utils"
 	"fmt"
 )
 
